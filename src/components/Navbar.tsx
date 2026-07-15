@@ -10,6 +10,7 @@ const links = [
   { href: "/profile", label: "Profile" },
   { href: "/chat", label: "AI Chat" },
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
