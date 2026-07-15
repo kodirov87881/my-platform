@@ -41,7 +41,6 @@ export async function POST(req: Request) {
       model,
       system: systemPrompt,
       messages,
-      maxTokens: 500,
     });
 
     return Response.json({ response: result.text });
