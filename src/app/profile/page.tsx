@@ -1,4 +1,5 @@
 import { siteConfig } from "@/lib/utils";
+import ContactForm from "@/components/ContactForm";
 
 export default function ProfilePage() {
   return (
@@ -62,7 +63,7 @@ export default function ProfilePage() {
       </section>
 
       {/* Goals */}
-      <section>
+      <section className="mb-12">
         <h2 className="text-xl font-semibold mb-4">Goals</h2>
         <ul className="space-y-2">
           {siteConfig.goals.map((goal, i) => (
@@ -71,6 +72,15 @@ export default function ProfilePage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* Contact Form */}
+      <section className="border-t border-[var(--border)] pt-10">
+        <h2 className="text-xl font-semibold mb-1">Contact Me</h2>
+        <p className="text-sm text-[var(--muted-foreground)] mb-6">
+          Have a project or question? Send me a message.
+        </p>
+        <ContactForm />
       </section>
     </div>
   );
