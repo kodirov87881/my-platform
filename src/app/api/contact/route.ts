@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_KEY || "b8368539-b77c-4e18-bf34-17e2616cb3fa",
+        access_key: process.env.WEB3FORMS_KEY || "demo",
         subject: `New message from ${name} - my-platform`,
         from_name: name,
         email: email,
