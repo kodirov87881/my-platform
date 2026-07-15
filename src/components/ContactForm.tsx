@@ -3,28 +3,30 @@
 import { useState } from "react";
 
 export default function ContactForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
 
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
     try {
-      const res = await fetch("/api/contact", {
+      // Send directly to Web3Forms from the browser (client-side)
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: formData,
       });
 
-      if (!res.ok) throw new Error("Failed");
+      const data = await res.json();
 
-      setStatus("sent");
-      setName("");
-      setEmail("");
-      setMessage("");
+      if (data.success) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        throw new Error(data.message || "Failed");
+      }
     } catch {
       setStatus("error");
     }
@@ -32,12 +34,14 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <input type="hidden" name="access_key" value="b8368539-b77c-4e18-bf34-17e2616cb3fa" />
+      <input type="hidden" name="subject" value="New message from my-platform" />
+
       <div>
         <label className="block text-sm font-medium mb-1">Name</label>
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name="name"
           required
           className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           placeholder="Your name"
@@ -47,8 +51,7 @@ export default function ContactForm() {
         <label className="block text-sm font-medium mb-1">Email</label>
         <input
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
           required
           className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           placeholder="your@email.com"
@@ -57,8 +60,7 @@ export default function ContactForm() {
       <div>
         <label className="block text-sm font-medium mb-1">Message</label>
         <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          name="message"
           required
           rows={4}
           className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none"
