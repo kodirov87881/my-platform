@@ -23,16 +23,16 @@ export default function Home() {
             View Profile
           </Link>
           <Link
+            href="/portfolio"
+            className="px-6 py-3 rounded-lg border border-[var(--border)] font-medium hover:bg-[var(--muted)] transition-colors"
+          >
+            My Services
+          </Link>
+          <Link
             href="/chat"
             className="px-6 py-3 rounded-lg border border-[var(--border)] font-medium hover:bg-[var(--muted)] transition-colors"
           >
             Chat with AI
-          </Link>
-          <Link
-            href="/dashboard"
-            className="px-6 py-3 rounded-lg border border-[var(--border)] font-medium hover:bg-[var(--muted)] transition-colors"
-          >
-            Dashboard
           </Link>
         </div>
       </section>
