@@ -34,7 +34,11 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <input type="hidden" name="access_key" value="b8368539-b77c-4e18-bf34-17e2616cb3fa" />
+      <input
+        type="hidden"
+        name="access_key"
+        value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || ""}
+      />
       <input type="hidden" name="subject" value="New message from my-platform" />
 
       <div>
