@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { generateText } from "ai";
+import { generateText, type LanguageModel } from "ai";
 
 const systemPrompt = `You are an AI assistant for Mukhammadali Kodirov.
 You help people learn about him and answer questions.
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       });
     }
 
-    let model: any;
+    let model: LanguageModel;
 
     if (process.env.DEEPSEEK_API_KEY) {
       const { deepseek } = await import("@ai-sdk/deepseek");
