@@ -73,6 +73,7 @@ describe("Auth API Routes", () => {
         email: "allowed@example.com",
         options: {
           shouldCreateUser: true,
+          emailRedirectTo: "http://localhost/api/auth/callback",
         },
       });
     });

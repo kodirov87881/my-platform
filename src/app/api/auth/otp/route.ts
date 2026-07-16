@@ -23,11 +23,15 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const requestUrl = new URL(request.url);
+    const redirectTo = `${requestUrl.origin}/api/auth/callback`;
+
     const supabase = await createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
+        emailRedirectTo: redirectTo,
       },
     });
 
