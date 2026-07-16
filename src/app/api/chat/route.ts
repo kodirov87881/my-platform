@@ -18,7 +18,15 @@ Be helpful, friendly, and use simple English. Keep answers short and clear.`;
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const messages = body.messages;
+
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return Response.json(
+        { response: "Invalid request payload: messages array is required." },
+        { status: 400 }
+      );
+    }
 
     // If no API key set, return a mock response for demo
     if (!process.env.OPENAI_API_KEY && !process.env.DEEPSEEK_API_KEY) {
