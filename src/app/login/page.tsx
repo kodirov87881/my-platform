@@ -93,13 +93,23 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="mt-6 text-center text-xs">
-          <Link
-            href="/"
-            className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
-          >
-            ← Back to Homepage
-          </Link>
+        <div className="mt-6 text-center text-xs space-y-3">
+          <div>
+            <Link
+              href="/verify"
+              className="text-[var(--primary)] hover:underline"
+            >
+              Already have a code? Verify here →
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/"
+              className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+            >
+              ← Back to Homepage
+            </Link>
+          </div>
         </div>
       </div>
     </div>
