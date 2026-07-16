@@ -11,21 +11,26 @@ export default function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
 
     try {
-      // Send directly to Web3Forms from the browser (client-side)
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
       });
 
       const data = await res.json();
 
-      if (data.success) {
+      if (res.ok && data.success) {
         setStatus("sent");
         form.reset();
       } else {
-        throw new Error(data.message || "Failed");
+        throw new Error(data.error || "Failed");
       }
     } catch {
       setStatus("error");
@@ -34,8 +39,6 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <input type="hidden" name="access_key" value="b8368539-b77c-4e18-bf34-17e2616cb3fa" />
-      <input type="hidden" name="subject" value="New message from my-platform" />
 
       <div>
         <label className="block text-sm font-medium mb-1">Name</label>
